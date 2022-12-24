@@ -1,27 +1,33 @@
 function preload() {
 	world_start = loadSound("world_start.wav");
+	mario_jump = loadSound("jump.wav");
+	mario_coin = loadSound("coin.wav");
+	mario_gameOver = loadSound("gameover.wav");
+	mario_die = loadSound("mariodie.wav");
+	mario_kick = loadSound("kick.wav");
 	setSprites();
 	MarioAnimation();
 }
 
 function setup() {
-	canvas = createCanvas(1240,336);
+	canvas = createCanvas(1240, 336);
+	canvas.parent("canvas");
 	instializeInSetup(mario);
 	video = createCapture(VIDEO);
-  video.size(800,400);
-  video.parent("game_console");
-  poseNet= ml5.poseNet(video,model_loaded);
-  poseNet.on("pose",get_poses);
+	video.size(800, 400);
+	video.parent("game_console");
+	poseNet = ml5.poseNet(video, model_loaded);
+	poseNet.on("pose", get_poses);
 }
-function model_loaded(){
-console.log("model is loaded");
+function model_loaded() {
+	console.log("model is loaded");
 }
-function get_poses(results){
-if(results.length > 0){
-noseX= results[0].pose.nose.x;
-noseY= results[0].pose.nose.y;
-console.log(noseX,noseY);
-}
+function get_poses(results) {
+	if (results.length > 0) {
+		noseX = results[0].pose.nose.x;
+		noseY = results[0].pose.nose.y;
+		console.log(noseX, noseY);
+	}
 }
 function draw() {
 	game()
